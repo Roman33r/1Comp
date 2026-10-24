@@ -162,7 +162,14 @@ button.dv-t:hover{color:var(--yellow)}
 .dot.bad{background:var(--red)}
 .pos{color:var(--ink-2);white-space:nowrap;font-family:var(--mono);font-size:13px}
 
-.out{background:var(--panel);color:#E8EDF5;display:flex;flex-direction:column;min-height:0;min-width:0}
+.out{background:var(--panel);color:#E8EDF5;display:flex;flex-direction:column;min-height:0;min-width:0;position:relative}
+/* разделитель между редактором и панелью результата: ширина панели — в процентах от окна */
+.work.out-sized{grid-template-columns:minmax(0,1fr) var(--outw)}
+.out-split{position:absolute;left:-5px;top:0;bottom:0;width:10px;z-index:4;cursor:col-resize;touch-action:none;outline:0}
+.out-split::after{content:'';position:absolute;left:4px;top:0;bottom:0;width:2px;background:transparent;transition:background .15s}
+.out-split:hover::after,.out-split:focus-visible::after,.out-split.drag::after{background:var(--yellow)}
+body.out-dragging{cursor:col-resize;user-select:none}
+.out-min .out-split{display:none}
 .tabs{display:flex;gap:2px;padding:8px 10px 0;border-bottom:1px solid var(--panel-line)}
 .tab{background:none;border:0;color:#9AA7BC;font:500 14px 'Onest',sans-serif;padding:8px 13px;border-bottom:3px solid transparent;cursor:pointer}
 .tab:hover{color:#fff}
@@ -938,7 +945,8 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
 .set-row input{margin:3px 0 0;width:18px;height:18px;flex:none}
 
 @media (max-width:1000px){
-  .work{grid-template-columns:1fr;height:auto}
+  .work,.work.out-sized{grid-template-columns:1fr;height:auto}
+  .out-split{display:none}
   .editor{border-right:0;border-bottom:1px solid var(--line)}
   .ed-body{height:380px;flex:none}
   .out{height:360px}
@@ -1079,6 +1087,7 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
         </div>
       </div>
       <div class="out">
+        <div class="out-split" id="outSplit" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Ширина панели результата" title="Потяните, чтобы изменить ширину панели; двойной щелчок — вернуть как было"></div>
         <div class="tabs" role="tablist" aria-label="Результат">
           <button class="tab" role="tab" id="t-console" aria-controls="p-console" aria-selected="true" type="button">Консоль</button>
           <button class="tab" role="tab" id="t-js" aria-controls="p-js" aria-selected="false" type="button">JavaScript</button>
@@ -5222,6 +5231,42 @@ function outNotify(n, err) {
 }
 outTgl.addEventListener('click', () => setOutMin(!$('#ide .work').classList.contains('out-min'), true));
 try { if (localStorage.getItem(OUT_KEY) === '1') setOutMin(true, false); } catch (e) { /* хранилище недоступно */ }
+/* ширина панели результата: перетаскивание разделителя, стрелки на нём, двойной щелчок — по умолчанию */
+const OUTW_KEY = 'sandbox1c.outw.v1', outSplit = $('#outSplit');
+function setOutW(ratio, save) {
+  const work = $('#ide .work'), w = work.getBoundingClientRect().width;
+  if (ratio == null) { work.classList.remove('out-sized'); work.style.removeProperty('--outw'); }
+  else {
+    if (w) ratio = Math.min(Math.max(ratio, 240 / w), 1 - 320 / w); /* панель не уже 240 px, редактор не уже 320 px */
+    ratio = Math.min(Math.max(ratio, 0.15), 0.85);
+    work.classList.add('out-sized'); work.style.setProperty('--outw', (ratio * 100).toFixed(2) + '%');
+  }
+  const cur = ratio == null ? 1 / 2.2 : ratio;
+  outSplit.setAttribute('aria-valuenow', String(Math.round(cur * 100))); outSplit.setAttribute('aria-valuetext', Math.round(cur * 100) + '% ширины окна');
+  if (save) try { if (ratio == null) localStorage.removeItem(OUTW_KEY); else localStorage.setItem(OUTW_KEY, String(ratio)); } catch (e) { /* хранилище недоступно */ }
+  window.dispatchEvent(new Event('resize'));
+}
+const outRatio = () => { const work = $('#ide .work'), r = work.getBoundingClientRect(), o = work.querySelector('.out').getBoundingClientRect(); return r.width ? o.width / r.width : 1 / 2.2; };
+outSplit.setAttribute('aria-valuemin', '15'); outSplit.setAttribute('aria-valuemax', '85');
+outSplit.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0) return;
+  e.preventDefault(); outSplit.setPointerCapture(e.pointerId); outSplit.classList.add('drag'); document.body.classList.add('out-dragging');
+  const r = $('#ide .work').getBoundingClientRect(); let raf = 0, x = e.clientX;
+  const mv = (ev) => { x = ev.clientX; if (!raf) raf = requestAnimationFrame(() => { raf = 0; setOutW((r.right - x) / r.width, false); }); };
+  const up = () => {
+    outSplit.removeEventListener('pointermove', mv); outSplit.removeEventListener('pointerup', up); outSplit.removeEventListener('pointercancel', up);
+    if (raf) cancelAnimationFrame(raf); outSplit.classList.remove('drag'); document.body.classList.remove('out-dragging');
+    setOutW((r.right - x) / r.width, true);
+  };
+  outSplit.addEventListener('pointermove', mv); outSplit.addEventListener('pointerup', up); outSplit.addEventListener('pointercancel', up);
+});
+outSplit.addEventListener('dblclick', () => setOutW(null, true));
+outSplit.addEventListener('keydown', (e) => {
+  const step = e.shiftKey ? 0.1 : 0.02;
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); setOutW(outRatio() + (e.key === 'ArrowLeft' ? step : -step), true); }
+  else if (e.key === 'Home' || e.key === 'Enter') { e.preventDefault(); setOutW(null, true); }
+});
+try { const v = parseFloat(localStorage.getItem(OUTW_KEY)); if (v > 0 && v < 1) setOutW(v, false); else setOutW(null, false); } catch (e) { setOutW(null, false); }
 function selectTab(name) {
   [['console', pCon], ['js', pJs], ['q', pQ], ['tok', pTok], ['dbg', $('#p-dbg')]].forEach(([n, pane]) => {
     const on = n === name; pane.hidden = !on;
@@ -9924,6 +9969,7 @@ function buildHelp() {
     'поиск найти заменить замена модули ctrl f ctrl h ctrl shift f');
   add('ui-output', 'Интерфейс', 'Панель результата и окна', () =>
     UL(['<b>Консоль</b> — сообщения, ошибки и время выполнения.', '<b>JavaScript</b> — код, в который скомпилирован модуль.', '<b>Запросы</b> — тексты выполненных запросов, параметры и результаты; параметры можно поменять и выполнить запрос заново.', '<b>Лексемы</b> — как компилятор разбил текст на слова.', '<b>Отладка</b> — переменные и стек во время ' + HL('ui-debug', 'отладки') + '.']) +
+    P('Ширина панели меняется перетаскиванием её левого края (разделителя между редактором и панелью); стрелки ← → на разделителе меняют её с клавиатуры, двойной щелчок или Home возвращают исходную ширину. Ширина запоминается в браузере.') +
     P('Кнопка со стрелкой справа от вкладок сворачивает панель в узкую полосу: редактор занимает всю ширину, а на полосе виден счётчик новых сообщений или «!» при ошибке. Полоса внизу окна показывает этапы компиляции: лексер, парсер, генератор, выполнение.') +
     '<h4>Таблицы</h4>' + P('Таблицы результатов, данных базы и форм сортируются щелчком по заголовку колонки: по возрастанию, по убыванию, третий щелчок возвращает исходный порядок.') +
     '<h4>Размер окон</h4>' + UL(['В заголовках окон «Редактор» и «Конфигурация» две кнопки: ↔ растягивает окно на всю ширину страницы, ⛶ разворачивает во весь экран (Esc или двойной щелчок по заголовку — вернуть).', 'Окна форм открываются в фиксированном размере; уголок справа внизу меняет размер, двойной щелчок по нему возвращает размер по умолчанию.']),
