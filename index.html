@@ -3,11 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231B2433'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='30' fill='%23FFDD00'%3E1%D0%A1%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#FFDD00">
 <title>Песочница 1С — компилятор, запросы и запуск кода 1С в браузере</title>
 <meta name="description" content="Пишите код и запросы на встроенном языке 1С и запускайте их прямо в браузере: компилятор переводит модуль в JavaScript и выполняет, запросы работают на демо-базе.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Onest:wght@400;500;600&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+<script>try{var f=+localStorage.getItem("sandbox1c.edfont.v1");if(f>=11&&f<=24){document.documentElement.style.setProperty("--code-fs",f+"px");document.documentElement.style.setProperty("--lh",Math.round(f*1.6)+"px")}}catch(e){}</script>
 <script>try{var t=localStorage.getItem("sandbox1c.theme");if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
 :root{
@@ -949,6 +952,9 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
 .set-body{padding:18px;display:grid;gap:16px;background:var(--white)}
 .set-row{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
 .set-row input{margin:3px 0 0;width:18px;height:18px;flex:none}
+.set-hr{border:0;border-top:1px solid var(--line);margin:2px 0}
+.set-field{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:15px}
+.set-field select{min-width:170px}
 
 @media (max-width:1000px){
   .work,.work.out-sized{grid-template-columns:1fr;height:auto}
@@ -1402,6 +1408,11 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
   <div class="set-body">
     <label class="set-row"><input type="checkbox" id="setTour"><span><b>Показывать гайд по интерфейсу</b><br><span class="muted">в начале новой сессии браузера и после сброса к демо-базе</span></span></label>
     <div><button type="button" class="btn" id="setTourNow">Пройти гайд сейчас</button></div>
+    <hr class="set-hr">
+    <label class="set-field"><span><b>Размер шрифта редактора</b><br><span class="muted">Код, номера строк и подсказки</span></span>
+      <select class="in" id="setFont"><option value="12">12</option><option value="13">13</option><option value="">14 — по умолчанию</option><option value="15">15</option><option value="16">16</option><option value="18">18</option><option value="20">20</option><option value="22">22</option></select></label>
+    <label class="set-field"><span><b>Тема оформления</b><br><span class="muted">При следующих открытиях страницы; кнопка в шапке тоже её меняет</span></span>
+      <select class="in" id="setTheme"><option value="">Как в системе</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></label>
   </div>
 </dialog>
 
@@ -5067,7 +5078,8 @@ const C = window.Core1C;
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const LH = 22, PAD = 14;
+let LH = 22; const PAD = 14; /* высота строки редактора: меняется вместе с размером шрифта (настройки) */
+try { const f = +localStorage.getItem('sandbox1c.edfont.v1'); if (f >= 11 && f <= 24) LH = Math.round(f * 1.6); } catch (e) { /* по умолчанию */ }
 
 const ta = $('#code'), hl = $('#hl'), layer = $('#layer'), gut = $('#gutterInner'), band = $('#errband');
 const dot = $('#dot'), statusText = $('#statusText'), posEl = $('#pos');
@@ -7820,6 +7832,8 @@ moduleSel.addEventListener('change', () => switchModule(moduleSel.value));
   const MOON = ic('<path d="M13.5 9.6A5.6 5.6 0 0 1 6.4 2.5a5.6 5.6 0 1 0 7.1 7.1z"/>'), SUN = ic('<circle cx="8" cy="8" r="2.8"/><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M3.2 12.8l1.1-1.1M11.7 4.3l1.1-1.1"/>');
   const apply = (t) => { document.documentElement.setAttribute('data-theme', t); btn.setAttribute('aria-pressed', String(t === 'dark')); $('#themeIc').innerHTML = t === 'dark' ? SUN : MOON; btn.title = t === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'; };
   apply(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  window.applyTheme = apply;
+  if (window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => { let saved = null; try { saved = localStorage.getItem('sandbox1c.theme'); } catch (x) { /* хранилище недоступно */ } if (saved !== 'dark' && saved !== 'light') apply(e.matches ? 'dark' : 'light'); });
   btn.addEventListener('click', () => { const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; apply(t); try { localStorage.setItem('sandbox1c.theme', t); } catch (e) { /* хранилище недоступно */ } });
 })();
 window.addEventListener('beforeunload', () => storeCurrent());
@@ -10166,7 +10180,7 @@ function buildHelp() {
     UL(['<b>Решать в редакторе</b> — в основной модуль загружается заготовка, а над редактором появляется панель задания.', '<b>Проверить решение</b> — песочница запускает ваш код и эталонное решение на копии базы (записи и проведение в заданиях не меняют ваши данные) и сравнивает сообщения. Для задач на функции проверка сама вызывает функцию с разными аргументами (таблица «Проверка вызовет функцию так»).', 'Некоторые задачи требуют определённой конструкции — например, цикла Для Каждого или Попытка; это указано в условии.', 'При ошибке видно, что ожидалось и что получилось, — на панели задания и во вкладке «Консоль».', '<b>Подсказка</b> и <b>Показать решение</b> — в окне задания. Решённые задачи отмечаются ✓, прогресс сохраняется в браузере.']), 'задания задача обучение проверка автопроверка упражнения прогресс');
   add('ui-tour', 'Интерфейс', 'Гайд по интерфейсу и настройки', () =>
     P('Гайд — пошаговая экскурсия: область, о которой идёт речь, подсвечивается, остальное затемняется, рядом появляется подсказка.') +
-    UL(['Показывается один раз в начале новой сессии браузера и после «Сбросить к демо-базе».', 'Листать — кнопками «Далее» и «Назад» или стрелками ← →; Esc или «Пропустить гайд» — закрыть.', 'Кнопка «Настройки» в шапке страницы: галочка «Показывать гайд по интерфейсу» включает и отключает автоматический показ, «Пройти гайд сейчас» запускает его вручную.']),
+    UL(['Показывается один раз в начале новой сессии браузера и после «Сбросить к демо-базе».', 'Листать — кнопками «Далее» и «Назад» или стрелками ← →; Esc или «Пропустить гайд» — закрыть.', 'Кнопка «Настройки» в шапке страницы: галочка «Показывать гайд по интерфейсу» включает и отключает автоматический показ, «Пройти гайд сейчас» запускает его вручную.', 'Там же — размер шрифта редактора (12–22) и тема оформления: как в системе, светлая или тёмная. Настройки хранятся в этом браузере.']),
     'гайд экскурсия обучение тур знакомство подсказки настройки отключить пропустить');
   add('ui-help', 'Интерфейс', 'Работа со справкой', () =>
     UL(['Справка открывается кнопкой «Справка» или F1; на слове в редакторе F1 сразу открывает нужный раздел.', 'Поиск ищет по заголовкам и тексту разделов; совпадения подсвечиваются в списке и в статье, в том числе с другими окончаниями слова.', 'F3 или Ctrl + G — следующее совпадение в статье, Shift + F3 — предыдущее.', 'Кнопка «Вставить в редактор» под примером вставляет его код в текущий модуль.']),
@@ -11910,7 +11924,29 @@ function tourAuto(force) {
   if (force || !seen) setTimeout(tourStart, force ? 300 : 700);
 }
 const setDlg = $('#setDlg');
-$('#setBtn').addEventListener('click', () => { $('#setTour').checked = !tourOff(); setDlg.showModal(); });
+const FONT_KEY = 'sandbox1c.edfont.v1', THEME_KEY = 'sandbox1c.theme';
+function setEditorFont(f) {
+  const root = document.documentElement.style;
+  if (f) { root.setProperty('--code-fs', f + 'px'); root.setProperty('--lh', Math.round(f * 1.6) + 'px'); LH = Math.round(f * 1.6); }
+  else { root.removeProperty('--code-fs'); root.removeProperty('--lh'); LH = 22; }
+  CW = 0; /* ширина символа пересчитается */
+  try { if (f) localStorage.setItem(FONT_KEY, String(f)); else localStorage.removeItem(FONT_KEY); } catch (e) { /* хранилище недоступно */ }
+  renderEditor(); window.dispatchEvent(new Event('resize'));
+}
+$('#setBtn').addEventListener('click', () => {
+  $('#setTour').checked = !tourOff();
+  let f = '', t = ''; try { f = localStorage.getItem(FONT_KEY) || ''; t = localStorage.getItem(THEME_KEY) || ''; } catch (e) { /* хранилище недоступно */ }
+  $('#setFont').value = [...$('#setFont').options].some((o) => o.value === f) ? f : '';
+  $('#setTheme').value = t === 'dark' || t === 'light' ? t : '';
+  setDlg.showModal();
+});
+$('#setFont').addEventListener('change', (e) => { setEditorFont(+e.target.value || 0); showToast('Размер шрифта редактора: ' + (e.target.value || '14')); });
+$('#setTheme').addEventListener('change', (e) => {
+  const v = e.target.value;
+  try { if (v) localStorage.setItem(THEME_KEY, v); else localStorage.removeItem(THEME_KEY); } catch (x) { /* хранилище недоступно */ }
+  if (window.applyTheme) window.applyTheme(v || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  showToast(v ? 'Тема: ' + (v === 'dark' ? 'тёмная' : 'светлая') : 'Тема: как в системе');
+});
 $('#setClose').addEventListener('click', () => setDlg.close());
 $('#setTour').addEventListener('change', (e) => { tourSetOff(!e.target.checked); showToast(e.target.checked ? 'Гайд будет показываться в новой сессии и после сброса к демо-базе' : 'Гайд отключён'); });
 $('#setTourNow').addEventListener('click', () => { setDlg.close(); window.scrollTo({ top: 0, behavior: 'instant' }); tourStart(); });
