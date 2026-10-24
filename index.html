@@ -266,7 +266,7 @@ body.win-maxed{overflow:hidden}
 .ti-n{min-width:0;overflow-wrap:anywhere}
 .tg-t{display:inline-flex;align-items:center;gap:7px}
 .md-ic{flex:none;display:block}
-.md-common{color:#5B4FC4}.md-const{color:#B4580E}.md-catalog{color:#2B6CB0}.md-document{color:#2F855A}.md-register{color:#7B4FB8}.md-accum{color:#C05621}.md-enum{color:#0E7C86}.md-ts{color:var(--ink-2)}.md-vt{color:#7B4FB8}
+.md-report{color:#B83280}.md-common{color:#5B4FC4}.md-const{color:#B4580E}.md-catalog{color:#2B6CB0}.md-document{color:#2F855A}.md-register{color:#7B4FB8}.md-accum{color:#C05621}.md-enum{color:#0E7C86}.md-ts{color:var(--ink-2)}.md-vt{color:#7B4FB8}
 .ti.sel .md-ic{filter:saturate(1.2)}
 .ti.sel{background:var(--white);border-left-color:var(--yellow)}
 .tg-e{margin:0;padding:2px 18px;color:var(--ink-2);font-size:14px}
@@ -940,6 +940,12 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
 .tour-arrow.left{left:-9px;border-top:0;border-right:0}
 .tour-arrow.right{right:-9px;border-bottom:0;border-left:0}
 .setdlg{width:min(500px,94vw)}
+.rp-text{width:100%;min-height:220px;font:400 13.5px/1.55 var(--mono);white-space:pre;resize:vertical;tab-size:4}
+.rp-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 4px}
+.rp-grid{border-collapse:collapse;margin:4px 0 8px}
+.rp-grid th,.rp-grid td{text-align:left;padding:5px 10px 5px 0;vertical-align:top;font-size:14px}
+.rp-grid th{color:var(--ink-2);font-weight:600}
+.rp-opts{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
 .set-body{padding:18px;display:grid;gap:16px;background:var(--white)}
 .set-row{display:flex;gap:10px;align-items:flex-start;font-size:15px;cursor:pointer}
 .set-row input{margin:3px 0 0;width:18px;height:18px;flex:none}
@@ -1000,7 +1006,7 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
 [data-theme="dark"] .gt td,[data-theme="dark"] .hp-t td,[data-theme="dark"] .qb-grid td{border-bottom-color:#2A3446}
 [data-theme="dark"] .fm-pc{color:#5A6579}
 [data-theme="dark"] .fm-pc.on{color:#86D492}
-[data-theme="dark"] .md-common{color:#A99CFF}[data-theme="dark"] .md-const{color:#F0A060}[data-theme="dark"] .md-catalog{color:#7FB2F0}[data-theme="dark"] .md-document{color:#7DD3A0}[data-theme="dark"] .md-register{color:#C9A2F2}[data-theme="dark"] .md-accum{color:#F29B6B}[data-theme="dark"] .md-enum{color:#5FD0D8}[data-theme="dark"] .md-vt{color:#C9A2F2}
+[data-theme="dark"] .md-report{color:#F49AC9}[data-theme="dark"] .md-common{color:#A99CFF}[data-theme="dark"] .md-const{color:#F0A060}[data-theme="dark"] .md-catalog{color:#7FB2F0}[data-theme="dark"] .md-document{color:#7DD3A0}[data-theme="dark"] .md-register{color:#C9A2F2}[data-theme="dark"] .md-accum{color:#F29B6B}[data-theme="dark"] .md-enum{color:#5FD0D8}[data-theme="dark"] .md-vt{color:#C9A2F2}
 [data-theme="dark"] .fz-ic-field{color:#7FB2F0}[data-theme="dark"] .fz-ic-label{color:#A7B2C4}[data-theme="dark"] .fz-ic-button{color:#F29B6B}[data-theme="dark"] .fz-ic-table{color:#C9A2F2}[data-theme="dark"] .fz-ic-group,[data-theme="dark"] .trow.tgrp .md-ic,[data-theme="dark"] .hg-ic{color:#E5C04A}[data-theme="dark"] .fz-ic-list{color:#5FD0D8}
 [data-theme="dark"] .q{color:#D2A2F0}
 [data-theme="dark"] .hl-root{border-color:#4A6290}
@@ -1260,6 +1266,7 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
         <li>Попытка, Исключение, ВызватьИсключение и ОписаниеОшибки.</li>
         <li>Массив, Структура, Соответствие, ТаблицаЗначений, СписокЗначений, даты в формате '20261231'.</li>
         <li>Печатные формы: макеты с областями и параметрами, ТабличныйДокумент, ЧислоПрописью, предпросмотр листов A4 и печать или сохранение в PDF.</li>
+        <li>Простые отчёты: отчёт по запросу в разделе «База данных» и ПостроительОтчета — таблица с шапкой и итогами.</li>
         <li>Периодические регистры сведений: Период, срезы СрезПоследних и СрезПервых в запросах, ПолучитьПоследнее и ПолучитьПервое в коде.</li>
         <li>Регистры накопления (остатков и оборотов): движения при проведении, виртуальные таблицы Остатки, Обороты, ОстаткиИОбороты.</li>
         <li>Свои справочники, документы с табличными частями, регистры сведений и перечисления: создаются в разделе «База данных» и доступны из кода через Справочники, Документы, РегистрыСведений, Перечисления.</li>
@@ -1276,7 +1283,8 @@ footer hr{border:0;border-top:1px solid var(--line);margin:0 0 20px}
         <li>Регистры бухгалтерии и расчёта.</li>
         <li>В запросах: ИТОГИ и МенеджерВременныхТаблиц — временные таблицы живут только внутри одного пакета.</li>
         <li>Открытие форм из кода (ОткрытьФорму) и диалоги платформы: Вопрос, Предупреждение, ВвестиЧисло, ВвестиСтроку.</li>
-        <li>Отчёты и СКД, ДеревоЗначений, Вычислить, работа с файлами, JSON и HTTP.</li>
+        <li>Система компоновки данных (СКД) и настройки отчётов: группировки, отборы, диаграммы. Есть простые отчёты по запросу и ПостроительОтчета.</li>
+        <li>ДеревоЗначений, Вычислить, работа с файлами, JSON и HTTP.</li>
         <li>Структура.Свойство(Ключ, Значение) с выходным параметром: доступна только форма с одним аргументом.</li>
         <li>Цикл останавливается после 3 000 000 итераций, чтобы вкладка не зависла.</li>
       </ul>
@@ -1444,11 +1452,11 @@ const KW = {
   'истина':'true','true':'true','ложь':'false','false':'false','неопределено':'undefined','undefined':'undefined','null':'null'
 };
 const KW_RU = {proc:'Процедура',endproc:'КонецПроцедуры',func:'Функция',endfunc:'КонецФункции',if:'Если',then:'Тогда',elsif:'ИначеЕсли',else:'Иначе',endif:'КонецЕсли',for:'Для',each:'Каждого',in:'Из',to:'По',while:'Пока',do:'Цикл',enddo:'КонецЦикла',return:'Возврат',break:'Прервать',continue:'Продолжить',var:'Перем',val:'Знач',export:'Экспорт',new:'Новый',try:'Попытка',except:'Исключение',endtry:'КонецПопытки',raise:'ВызватьИсключение',and:'И',or:'ИЛИ',not:'НЕ'};
-const TYPES = {'массив':'Массив','array':'Массив','структура':'Структура','structure':'Структура','соответствие':'Соответствие','map':'Соответствие','запрос':'Запрос','query':'Запрос','таблицазначений':'ТаблицаЗначений','valuetable':'ТаблицаЗначений','списокзначений':'СписокЗначений','табличныйдокумент':'ТабличныйДокумент','spreadsheetdocument':'ТабличныйДокумент','valuelist':'СписокЗначений'};
+const TYPES = {'массив':'Массив','array':'Массив','структура':'Структура','structure':'Структура','соответствие':'Соответствие','map':'Соответствие','запрос':'Запрос','query':'Запрос','таблицазначений':'ТаблицаЗначений','valuetable':'ТаблицаЗначений','списокзначений':'СписокЗначений','табличныйдокумент':'ТабличныйДокумент','spreadsheetdocument':'ТабличныйДокумент','построительотчета':'ПостроительОтчета','reportbuilder':'ПостроительОтчета','valuelist':'СписокЗначений'};
 const JS_RESERVED = new Set('abstract arguments await boolean break byte case catch char class const continue debugger default delete do double else enum eval export extends false final finally float for function goto if implements import in instanceof int interface let long native new null of package private protected public return short static super switch synchronized this throw throws transient true try typeof var void volatile while with yield undefined NaN Infinity async Date Math'.split(' '));
 
 const REFPARAMS = new Set(['отказ', 'стандартнаяобработка']);
-const GLOBALS = { 'константы': '$Константы', 'webцвета': '$WebЦвета', 'ориентациястраницы': '$ОриентацияСтраницы', 'справочники': '$Справочники', 'документы': '$Документы', 'регистрысведений': '$РегистрыСведений', 'перечисления': '$Перечисления', 'регистрынакопления': '$РегистрыНакопления', 'виддвижениянакопления': '$ВидДвиженияНакопления' };
+const GLOBALS = { 'константы': '$Константы', 'webцвета': '$WebЦвета', 'ориентациястраницы': '$ОриентацияСтраницы', 'справочники': '$Справочники', 'документы': '$Документы', 'регистрысведений': '$РегистрыСведений', 'перечисления': '$Перечисления', 'регистрынакопления': '$РегистрыНакопления', 'виддвижениянакопления': '$ВидДвиженияНакопления', 'отчеты': '$Отчеты' };
 class CompileError extends Error {
   constructor(msg, line, col) { super(msg); this.name = 'CompileError'; this.line = line || 1; this.col = col || 1; }
 }
@@ -1768,6 +1776,7 @@ function $str(v) {
   if (v instanceof Запрос) return 'Запрос';
   if (v instanceof СписокЗначений) return 'СписокЗначений';
   if (v instanceof ТабличныйДокумент) return 'ТабличныйДокумент';
+  if (v instanceof ПостроительОтчета) return 'ПостроительОтчета';
   if (v instanceof Макет) return 'Макет';
   if (v instanceof ОбластьМакета) return 'ОбластьМакета';
   return String(v);
@@ -1991,7 +2000,8 @@ function defaultMeta() {
   const goods = [{ n: 'Номенклатура', t: 'Справочник.Номенклатура' }, { n: 'Количество', t: 'Число' }, { n: 'Цена', t: 'Число' }, { n: 'Сумма', t: 'Число' }];
   const common = [{ name: 'РаботаСЦенами', code: '// Общий модуль: процедуры, доступные из любого модуля.\n// Вызов: РаботаСЦенами.ЦенаСНДС(1000)\n\n// Цена с НДС по ставке из константы СтавкаНДС.\n//\n// Параметры:\n//  Цена - Число - цена без НДС\n//\n// Возвращаемое значение:\n//  Число - цена с НДС\nФункция ЦенаСНДС(Цена) Экспорт\n    Ставка = Константы.СтавкаНДС.Получить();\n    Возврат Окр(Цена * (100 + Ставка) / 100, 2);\nКонецФункции\n\n// Строка для печатных форм: «Цена: 1 200,00 руб.»\nФункция ПредставлениеЦены(Цена) Экспорт\n    Возврат "Цена: " + Формат(Цена, "ЧДЦ=2") + " " + Константы.ОсновнаяВалюта.Получить();\nКонецФункции\n' }];
   const consts = [{ name: 'НазваниеОрганизации', t: 'Строка', v: 'ООО «Песочница»' }, { name: 'СтавкаНДС', t: 'Число', v: 20 }, { name: 'ОсновнаяВалюта', t: 'Строка', v: 'руб.' }];
-  return { version: 1, common, consts, objects: [
+   const reports = [{ name: 'ПродажиПоКонтрагентам', title: 'Продажи по контрагентам', totals: true, query: 'ВЫБРАТЬ\n    Р.Контрагент КАК Контрагент,\n    КОЛИЧЕСТВО(Р.Ссылка) КАК Документов,\n    СУММА(Р.СуммаДокумента) КАК Сумма\nИЗ\n    Документ.РеализацияТоваров КАК Р\nГДЕ\n    Р.Дата МЕЖДУ &Начало И &Конец\nСГРУППИРОВАТЬ ПО\n    Р.Контрагент\nУПОРЯДОЧИТЬ ПО\n    Сумма УБЫВ', params: { Начало: { text: '2026-01-01' }, Конец: { text: '2026-12-31' } } }];
+  return { version: 1, common, consts, reports, objects: [
     { kind: 'catalog', name: 'Номенклатура', syn: 'Номенклатура', attrs: [{ n: 'Группа', t: 'Строка' }, { n: 'Цена', t: 'Число' }, { n: 'ЕдИзм', t: 'Строка' }], tabs: [], rows: nomRows },
     { kind: 'catalog', name: 'Контрагенты', syn: 'Контрагенты', attrs: [{ n: 'Город', t: 'Строка' }], tabs: [], rows: konRows },
     { kind: 'catalog', name: 'Сотрудники', syn: 'Сотрудники', hier: 'groups', attrs: [{ n: 'Должность', t: 'Строка' }, { n: 'Оклад', t: 'Число' }], tabs: [], rows: [
@@ -2282,7 +2292,9 @@ function setMeta(m) {
     }
   });
   const nm = /^[\p{L}_][\p{L}\p{N}_]*$/u, seenC = new Set(), seenK = new Set();
-  m.common = Array.isArray(m.common) ? m.common : []; m.consts = Array.isArray(m.consts) ? m.consts : [];
+  m.common = Array.isArray(m.common) ? m.common : []; m.consts = Array.isArray(m.consts) ? m.consts : []; m.reports = Array.isArray(m.reports) ? m.reports : [];
+  const seenR = new Set();
+  m.reports.forEach((x) => { if (!x.name || !nm.test(x.name) || seenR.has(x.name.toLowerCase())) throw new Error('Некорректное имя отчёта: ' + x.name); seenR.add(x.name.toLowerCase()); x.query = x.query || ''; x.params = x.params && typeof x.params === 'object' ? x.params : {}; });
   m.common.forEach((x) => { if (!x.name || !nm.test(x.name) || seenC.has(x.name.toLowerCase())) throw new Error('Некорректное имя общего модуля: ' + x.name); seenC.add(x.name.toLowerCase()); x.code = x.code || ''; });
   m.consts.forEach((x) => { if (!x.name || !nm.test(x.name) || seenK.has(x.name.toLowerCase())) throw new Error('Некорректное имя константы: ' + x.name); seenK.add(x.name.toLowerCase()); x.t = x.t || 'Строка'; });
   META = m; rebuildDB();
@@ -3193,6 +3205,128 @@ function printRef(kind, name, key) {
   finally { PRINT_SINK = prev; }
   return { prints, msgs };
 }
+/* ---------- простые отчёты: ПостроительОтчета и отчёты конфигурации ---------- */
+/* результат запроса → строки табличного документа: заголовок, шапка, строки и итог по числовым колонкам */
+function reportSegs(cols, rows, o) {
+  o = o || {};
+  const n = Math.max(1, cols.length);
+  const num = cols.map((c, i) => rows.some((r) => typeof r[i] === 'number') && rows.every((r) => r[i] === null || r[i] === undefined || typeof r[i] === 'number'));
+  const txt = rows.map((r) => cols.map((c, i) => fmtVal(r[i])));
+  /* в итог идут числовые колонки, кроме первой (в ней подпись «Итого») и номеров/кодов */
+  const sum = num.map((x, i) => x && (cols.length === 1 || i > 0) && !/^(номер|код|номерстроки)$/i.test(String(cols[i])));
+  const showTot = o.totals !== false && rows.length > 0 && sum.some(Boolean);
+  const tot = cols.map((c, i) => (sum[i] ? fmtVal(round12(rows.reduce((a, r) => a + (typeof r[i] === 'number' ? r[i] : 0), 0))) : i === 0 ? 'Итого' : ''));
+  const widths = cols.map((c, i) => {
+    let m = String(c).length; txt.forEach((r) => { m = Math.max(m, r[i].length); }); if (showTot) m = Math.max(m, tot[i].length);
+    return Math.max(56, Math.min(320, Math.round(m * 7.2 + 18)));
+  });
+  const cell = (x, extra) => Object.assign({ x: String(x), s: 1, b: false, i: false, al: '', fs: 0, bd: 'all', bg: false }, extra);
+  const out = [];
+  if (o.title) out.push({ cells: [cell(o.title, { s: n, b: true, fs: 13, bd: '' })] });
+  if (o.sub) out.push({ cells: [cell(o.sub, { s: n, i: true, bd: '' })] });
+  if (o.title || o.sub) out.push({ cells: [cell('', { s: n, bd: '' })] });
+  out.push({ cells: cols.map((c) => cell(c, { b: true, bg: true, al: 'c' })) });
+  if (o.details !== false) txt.forEach((r) => out.push({ cells: r.map((x, i) => cell(x, { al: num[i] ? 'r' : '' })) }));
+  if (!rows.length) out.push({ cells: [cell('Нет данных', { s: n, i: true, al: 'c' })] });
+  if (showTot) out.push({ cells: tot.map((x, i) => cell(x, { b: true, al: sum[i] ? 'r' : '' })) });
+  return [{ type: 'rows', cols: widths.length ? widths : [200], rows: out }];
+}
+/* упрощённый ПостроительОтчета платформы: текст запроса, параметры, Выполнить(), Вывести(ТабДок) */
+class ПостроительОтчета {
+  constructor(text) {
+    this.текст = text === undefined ? '' : String(text); Object.defineProperty(this, '$p', { value: new Map() });
+    this.параметры = new ПараметрыЗапроса(this.$p); this.заголовок = ''; this.выводитьобщиеитоги = true; this.выводитьдетальныезаписи = true; this.результат = undefined;
+  }
+  установитьпараметр(nm, v) { this.$p.set(String(nm).toLowerCase(), { n: String(nm), v }); }
+  выполнить() { const q = new Запрос(this.текст); this.$p.forEach((o, k) => q.$p.set(k, o)); this.результат = q.выполнить(); return this.результат; }
+  вывести(td) {
+    if (!(this.результат instanceof РезультатЗапроса)) this.выполнить();
+    const segs = reportSegs(this.результат.cols, this.результат.rows, { title: $str(this.заголовок), totals: !!this.выводитьобщиеитоги, details: !!this.выводитьдетальныезаписи });
+    if (td === undefined) { const t = new ТабличныйДокумент(); t.заголовок = $str(this.заголовок) || 'Отчёт'; segs.forEach((x) => t.$segs.push(x)); t.показать(); return; }
+    if (!(td instanceof ТабличныйДокумент)) throw new Error('ПостроительОтчета.Вывести: ожидается табличный документ');
+    if (!$str(td.заголовок) && $str(this.заголовок)) td.заголовок = $str(this.заголовок);
+    segs.forEach((x) => td.$segs.push(x));
+  }
+}
+/* значение параметра отчёта из текста настройки: число, Истина/Ложь, дата ГГГГ-ММ-ДД, ссылка «@Тип#ключ», иначе строка */
+function paramFromText(s) {
+  s = String(s === undefined || s === null ? '' : s).trim();
+  if (/^-?\d+([.,]\d+)?$/.test(s)) return Number(s.replace(',', '.'));
+  if (/^(истина|true)$/i.test(s)) return true;
+  if (/^(ложь|false)$/i.test(s)) return false;
+  const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s); if (d) return new Date(+d[1], +d[2] - 1, +d[3]);
+  const r = /^@([^#]+)#(.*)$/.exec(s);
+  if (r) { const opts = refOptions(r[1]), o = opts.find((x) => String(x.key) === r[2]) || opts.find((x) => String(x.label) === r[2]); return new Ссылка(r[1], o ? o.key : r[2]); }
+  return s;
+}
+const queryParamNames = (text) => { const seen = new Map(); for (const m of String(text).replace(/"(?:[^"]|"")*"/g, '""').matchAll(/&([\p{L}_][\p{L}\p{N}_]*)/gu)) if (!seen.has(m[1].toLowerCase())) seen.set(m[1].toLowerCase(), m[1]); return [...seen.values()]; };
+/* параметры, которые сравниваются со ссылочными полями: { имя в нижнем регистре: «Справочник.Контрагенты» } */
+function queryParamRefs(text) {
+  const out = {}; let list; try { list = qparse(String(text), true); } catch (e) { return out; }
+  const pathRef = (parts, srcs) => {
+    const src = srcs.get(String(parts[0]).toLowerCase()); if (!src || parts.length < 2) return null;
+    let tb = DB[src.toLowerCase()], ref = null;
+    for (const seg of parts.slice(1)) {
+      if (!tb) return null; const col = tb.cols.find((c) => c.toLowerCase() === String(seg).toLowerCase()); if (!col) return null;
+      ref = col === 'Ссылка' ? (tb.refs.Ссылка || tb.name) : tb.refs[col] || null; tb = ref ? DB[ref.toLowerCase()] : null;
+    }
+    return refTable(ref);
+  };
+  const mark = (pathN, parN, srcs) => { if (pathN && pathN.t === 'path' && parN && parN.t === 'param') { const t = pathRef(pathN.parts, srcs); if (t) out[parN.name.toLowerCase()] = t; } };
+  const walk = (nd, srcs) => {
+    if (!nd || typeof nd !== 'object') return;
+    if (nd.t === 'cmp') { mark(nd.l, nd.r, srcs); mark(nd.r, nd.l, srcs); }
+    if ((nd.t === 'in' || nd.t === 'inh') && nd.items) nd.items.forEach((x) => mark(nd.e, x, srcs));
+    if (nd.t === 'between') { mark(nd.e, nd.a, srcs); mark(nd.e, nd.b, srcs); }
+    Object.values(nd).forEach((v) => { if (Array.isArray(v)) v.forEach((x) => walk(x, srcs)); else if (v && typeof v === 'object') walk(v, srcs); });
+  };
+  list.forEach((q) => (q.parts || []).forEach((sel) => {
+    const srcs = new Map(); (sel.from || []).forEach((f) => { if (f.src && f.src.name) srcs.set(String(f.src.alias).toLowerCase(), f.src.name); });
+    walk(sel.where, srcs); walk(sel.having, srcs); (sel.from || []).forEach((f) => walk(f.cond, srcs));
+  }));
+  return out;
+}
+const findReport = (name) => (META.reports || []).find((x) => x.name.toLowerCase() === String(name).toLowerCase());
+/* формирование отчёта конфигурации: значения параметров из настроек отчёта, поверх — из структуры, переданной в код */
+function buildReport(rep, over) {
+  const vals = new Map();
+  queryParamNames(rep.query).forEach((n) => {
+    const st = (rep.params || {})[n] || Object.entries(rep.params || {}).find(([k]) => k.toLowerCase() === n.toLowerCase())?.[1];
+    if (!st) return;
+    const v = st.list ? Массив.from(String(st.text || '').split(',').map((x) => x.trim()).filter(Boolean).map(paramFromText)) : paramFromText(st.text);
+    vals.set(n.toLowerCase(), { n, v });
+  });
+  if (over !== undefined && over !== null) {
+    if (!(over instanceof Структура)) throw new Error('Отчет.Сформировать: параметры передаются структурой, например Новый Структура("Начало, Конец", Дата1, Дата2)');
+    over.$d.forEach((e, k) => vals.set(k, { n: e.k, v: e.v }));
+  }
+  const missing = queryParamNames(rep.query).filter((n) => !vals.has(n.toLowerCase()));
+  if (missing.length) throw new Error('Отчёт «' + rep.name + '»: не заданы параметры ' + missing.map((x) => '&' + x).join(', ') + ' — укажите их в настройках отчёта или передайте структурой в Сформировать()');
+  const pm = new Map([...vals].map(([k, o]) => [k, o.v]));
+  const r = runQuery(rep.query, pm);
+  if (CUR) CUR.queries.push({ text: rep.query, params: [...vals.values()].map((o) => [o.n, o.v]), cols: r.cols, rows: r.rows });
+  const td = new ТабличныйДокумент(); td.заголовок = rep.title || rep.name; td.ориентациястраницы = rep.orient === 'Ландшафт' ? 'Ландшафт' : 'Портрет';
+  const sub = [...vals.values()].map((o) => o.n + ': ' + (o.v instanceof Array ? o.v.map((x) => fmtVal(x)).join(', ') : fmtVal(o.v))).join('; ');
+  reportSegs(r.cols, r.rows, { title: rep.title || rep.name, sub: rep.showParams === false ? '' : sub, totals: rep.totals !== false }).forEach((x) => td.$segs.push(x));
+  return td;
+}
+const REPORTS = new Proxy({}, {
+  get(_, p) {
+    if (typeof p !== 'string') return undefined;
+    const rep = findReport(p);
+    if (!rep) throw new Error('Отчёт «' + p + '» не найден. ' + ((META.reports || []).length ? 'Доступны: ' + META.reports.map((x) => x.name).join(', ') : 'Создайте его в разделе «База данных» → «Отчёты»'));
+    return new Proxy({}, { get(_2, q) { if (typeof q !== 'string') return undefined; if (q.toLowerCase() === 'сформировать') return (over) => buildReport(rep, over); throw new Error('У отчёта есть только метод Сформировать(Параметры)'); } });
+  }
+});
+/* кнопка «Сформировать» в конфигураторе */
+function runReport(name) {
+  const rep = findReport(name), prints = [], msgs = [];
+  if (!rep) return { prints, msgs: ['Отчёт не найден'] };
+  const st = { out: [], guard: 0, lastErr: '' }, rt = buildRT(st, (k, t) => msgs.push(t)), prev = PRINT_SINK, prevCur = CUR;
+  PRINT_SINK = prints; CUR = { queries: [] };
+  try { withRT(rt, () => buildReport(rep).показать()); } catch (e) { msgs.push(toRu(e)); } finally { PRINT_SINK = prev; CUR = prevCur; }
+  return { prints, msgs };
+}
 function numToWords(v, cur) {
   const U = [['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'], ['', 'одна', 'две', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять']];
   const T10 = ['десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать'];
@@ -4031,7 +4165,7 @@ function generate(ast, opts) {
       case 'Index': return { c: '$idx(' + ex(n.obj, ctx).c + ', ' + ex(n.idx, ctx).c + ')', p: 100 };
       case 'New': {
         const T = TYPES[n.typeName.toLowerCase()];
-        if (!T) throw new CompileError('Неизвестный тип: «' + n.typeName + '». Доступны Массив, Структура, Соответствие, Запрос, ТаблицаЗначений', n.line, n.col);
+        if (!T) throw new CompileError('Неизвестный тип: «' + n.typeName + '». Доступны Массив, Структура, Соответствие, Запрос, ТаблицаЗначений, ТабличныйДокумент, ПостроительОтчета', n.line, n.col);
         return { c: 'new $' + T + '(' + args(n.args, ctx) + ')', p: 100 };
       }
       case 'Cond': return { c: '(' + ex(n.c, ctx).c + ' ? ' + ex(n.a, ctx).c + ' : ' + ex(n.b, ctx).c + ')', p: 100 };
@@ -4168,7 +4302,7 @@ function compile(src, desc, extra) {
 function buildRT(st, push) {
   const LIMIT = 3000000;
   return Object.assign({}, makeFuncs(st, push), {
-    $Массив: Массив, $Структура: Структура, $Соответствие: Соответствие, $Запрос: Запрос, $ТаблицаЗначений: ТаблицаЗначений, $СписокЗначений: СписокЗначений, $Справочники: managerOf('catalog'), $Документы: managerOf('document'), $РегистрыСведений: managerOf('register'), $Перечисления: managerOf('enum'), $РегистрыНакопления: managerOf('accum'), $ВидДвиженияНакопления: VID, $ТабличныйДокумент: ТабличныйДокумент, $ОриентацияСтраницы: ORIENT, $WebЦвета: WEBCOL, $Константы: CONSTS, $cm: COMMON, $getTemplate: getTemplate, $eq, $div, $mod, $add, $sub, $idx, $setidx, $iter,
+    $Массив: Массив, $Структура: Структура, $Соответствие: Соответствие, $Запрос: Запрос, $ПостроительОтчета: ПостроительОтчета, $Отчеты: REPORTS, $ТаблицаЗначений: ТаблицаЗначений, $СписокЗначений: СписокЗначений, $Справочники: managerOf('catalog'), $Документы: managerOf('document'), $РегистрыСведений: managerOf('register'), $Перечисления: managerOf('enum'), $РегистрыНакопления: managerOf('accum'), $ВидДвиженияНакопления: VID, $ТабличныйДокумент: ТабличныйДокумент, $ОриентацияСтраницы: ORIENT, $WebЦвета: WEBCOL, $Константы: CONSTS, $cm: COMMON, $getTemplate: getTemplate, $eq, $div, $mod, $add, $sub, $idx, $setidx, $iter,
     $g() { if (++st.guard > LIMIT) { const e = new Error('Превышен лимит в 3 000 000 итераций: возможно, цикл бесконечный'); e.fatal = true; throw e; } },
     $catch(e) { if (e && e.fatal) throw e; st.lastErr = toRu(e); },
     $raise() { const e = new Error(arguments.length && arguments[0] !== undefined ? $str(arguments[0]) : st.lastErr); e.userRaised = true; return e; },
@@ -4854,6 +4988,32 @@ const EXAMPLES = [
 Цены = РегистрыСведений.ЦеныНоменклатуры.СрезПоследних(, Новый Структура("Номенклатура", Монитор));
 Сообщить("Текущая цена монитора: " + Строка(Цены[0].Цена) + " (" + Цены[0].Комментарий + ")");
 ` },
+{ id: 'report', title: 'Отчёты', code:
+`// Отчёт из конфигурации: раздел «База данных» → «Отчёты».
+// Параметры из структуры заменяют значения из настроек отчёта.
+ТабДок = Отчеты.ПродажиПоКонтрагентам.Сформировать(Новый Структура("Начало, Конец", '20260101', '20260331'));
+ТабДок.Показать();
+
+// ПостроительОтчета: запрос → таблица с шапкой и итогами.
+Построитель = Новый ПостроительОтчета;
+Построитель.Текст =
+    "ВЫБРАТЬ
+    |    Н.Наименование КАК Товар,
+    |    Н.Группа КАК Группа,
+    |    Н.Цена КАК Цена
+    |ИЗ
+    |    Справочник.Номенклатура КАК Н
+    |ГДЕ
+    |    Н.Цена >= &МинЦена
+    |УПОРЯДОЧИТЬ ПО
+    |    Цена УБЫВ";
+Построитель.Параметры.Вставить("МинЦена", 3000);
+Построитель.Заголовок = "Прайс-лист: товары от 3 000 руб.";
+ТабДок2 = Новый ТабличныйДокумент;
+Построитель.Вывести(ТабДок2);
+ТабДок2.Показать();
+Сообщить("Строк в прайс-листе: " + ТабДок2.ВысотаТаблицы);
+` },
 { id: 'q-batch', title: 'Пакет и временные таблицы', code:
 `// Пакет запросов: части разделены «;».
 // ПОМЕСТИТЬ сохраняет результат во временную таблицу,
@@ -4894,8 +5054,8 @@ const EXAMPLES = [
 ];
 
 global.Core1C = { compile, execute, KW, FUNC_NAMES, FUNC_LC, TYPES, EXAMPLES, CompileError, QWORDS, fmt: $str,
-  GLOBAL_NAMES: ['Справочники', 'Документы', 'РегистрыСведений', 'Перечисления', 'РегистрыНакопления', 'ВидДвиженияНакопления', 'ОриентацияСтраницы', 'WebЦвета', 'Константы'], WEB_COLORS, colorCss,
-  SCHEMA: schemaList, LIST_OPS_RU, hierFields, debugStart, dbgInspect, listView, defaultListForm, defaultObjectForm, defaultListCols, mainForm, parseQuery: qparse, parseBatch: (src) => qparse(src, true), KINDS, getMeta: () => META, setMeta, defaultMeta: () => demoModules(defaultMeta()), touch: rebuildDB, refOptions, rerun, createForm, moduleOpts, fieldNamesOf, findObj, makeRef: (t, k) => new Ссылка(t, k), accumView, sliceView, repostAll, setPosted, clearMoves, rekeyMoves, renameRegistrator, tplSnapshot, genTemplate, genPrintCode, printRef, tplParams };
+  GLOBAL_NAMES: ['Справочники', 'Документы', 'РегистрыСведений', 'Перечисления', 'РегистрыНакопления', 'ВидДвиженияНакопления', 'ОриентацияСтраницы', 'WebЦвета', 'Константы', 'Отчеты'], WEB_COLORS, colorCss,
+  SCHEMA: schemaList, LIST_OPS_RU, hierFields, debugStart, dbgInspect, listView, defaultListForm, defaultObjectForm, defaultListCols, mainForm, parseQuery: qparse, parseBatch: (src) => qparse(src, true), runReport, queryParamRefs, queryParamNames, reportSegs, KINDS, getMeta: () => META, setMeta, defaultMeta: () => demoModules(defaultMeta()), touch: rebuildDB, refOptions, rerun, createForm, moduleOpts, fieldNamesOf, findObj, makeRef: (t, k) => new Ссылка(t, k), accumView, sliceView, repostAll, setPosted, clearMoves, rekeyMoves, renameRegistrator, tplSnapshot, genTemplate, genPrintCode, printRef, tplParams };
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 
@@ -5280,7 +5440,7 @@ renderQueries([]);
 let activeEx = null;
 const exSel = $('#exSel');
 (function () {
-  const G = [['Язык', ['hello', 'fact', 'primes', 'nds', 'words', 'deposit', 'errors']], ['Запросы', ['q-select', 'q-join', 'q-ref', 'tv', 'q-params', 'q-slice', 'q-hier', 'q-batch', 'common']], ['База данных и регистры', ['db-code', 'q-accum', 'db-post']], ['Печать', ['print']]];
+  const G = [['Язык', ['hello', 'fact', 'primes', 'nds', 'words', 'deposit', 'errors']], ['Запросы', ['q-select', 'q-join', 'q-ref', 'tv', 'q-params', 'q-slice', 'q-hier', 'q-batch', 'common']], ['База данных и регистры', ['db-code', 'q-accum', 'db-post']], ['Печать и отчёты', ['print', 'report']]];
   const used = new Set(G.flatMap((g) => g[1]));
   const other = C.EXAMPLES.filter((e) => !used.has(e.id)).map((e) => e.id);
   if (other.length) G.push(['Другое', other]);
@@ -5451,7 +5611,8 @@ const MD_ICONS = {
   val: '<circle cx="8" cy="8" r="2.4"/>',
   group: '<path d="M2 4.5V12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H8L6.5 3.5H3A1 1 0 0 0 2 4.5z"/>',
   common: '<path d="M5.5 3.5 2 8l3.5 4.5M10.5 3.5 14 8l-3.5 4.5M9 2.5l-2 11"/>',
-  const: '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5 6h6M6.5 6v5M9.5 6v5"/>'
+  const: '<rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5 6h6M6.5 6v5M9.5 6v5"/>',
+  report: '<path d="M3.5 1.5h6L13 5v9.5H3.5z"/><path d="M9.5 1.5V5H13"/><path d="M5.75 12.5v-2.5M8 12.5V8M10.25 12.5V9.5"/>'
 };
 function mdIcon(kind) {
   return '<svg class="md-ic md-' + kind + '" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (MD_ICONS[kind] || MD_ICONS.register) + '</svg>';
@@ -5816,8 +5977,8 @@ function renderTree() {
 }
 function treeExtra() {
   const meta = M(), grp = (kind, title, act, list, label) => '<div class="tg"><div class="tg-h"><span class="tg-t">' + mdIcon(kind) + title + '</span><button type="button" class="tg-add" data-act="' + act + '" aria-label="Создать: ' + label + '">Создать</button></div>' +
-    (list.length ? list.map((x) => trow({ d: 0, icon: kind, label: x.name, act: 'obj-sel', data: 'data-kind="' + kind + '" data-name="' + esc(x.name) + '"', sel: dbState.kind === kind && dbState.name === x.name, cls: 'tobj', title: (kind === 'common' ? 'Общий модуль: ' : 'Константа (' + x.t + '): ') + x.name })).join('') : '<p class="tg-e">Пока пусто</p>') + '</div>';
-  return grp('common', 'Общие модули', 'cm-add', meta.common || [], 'общий модуль') + grp('const', 'Константы', 'cn-add', meta.consts || [], 'константа');
+    (list.length ? list.map((x) => trow({ d: 0, icon: kind, label: x.name, act: 'obj-sel', data: 'data-kind="' + kind + '" data-name="' + esc(x.name) + '"', sel: dbState.kind === kind && dbState.name === x.name, cls: 'tobj', title: (kind === 'common' ? 'Общий модуль: ' : kind === 'report' ? 'Отчёт: ' : 'Константа (' + x.t + '): ') + x.name })).join('') : '<p class="tg-e">Пока пусто</p>') + '</div>';
+  return grp('report', 'Отчёты', 'rp-add', meta.reports || [], 'отчёт') + grp('common', 'Общие модули', 'cm-add', meta.common || [], 'общий модуль') + grp('const', 'Константы', 'cn-add', meta.consts || [], 'константа');
 }
 function propsPanel(o) {
   const el = dbState.el;
@@ -5917,6 +6078,7 @@ document.addEventListener('keydown', (e) => {
 });
 function renderMain() {
   dzTrack();
+  if (dbState.kind === 'report') { $('#dbmain').innerHTML = reportPanel(); return; }
   if (dbState.kind === 'common' || dbState.kind === 'const') { $('#dbmain').innerHTML = dbState.kind === 'common' ? commonPanel() : constPanel(); return; }
   const o = curObj(); const box = $('#dbmain');
   if (!o) { box.innerHTML = '<p class="muted">Выберите объект слева или создайте новый.</p>'; return; }
@@ -7146,9 +7308,11 @@ function updatePreview() {
     res.innerHTML = (multi ? '<p class="qb-mut">Запрос ' + (QBS.bi + 1) + ' пакета</p>' : '') + queryTable({ cols: r.cols, rows: r.rows });
   } catch (ex) { res.innerHTML = '<p class="qerr">' + esc(ex.message) + '</p>'; }
 }
-function openBuilder() {
+function openBuilder(target) {
+  /* target — запрос не из редактора, а, например, из отчёта: { title, text, ptest, plist, apply(текст, значенияПараметров, списки) } */
+  QBS.target = target && typeof target.apply === 'function' ? target : null;
   QBS.base = C.SCHEMA(); QBS.batch = [{ st: newQState() }]; selectBatch(0); QBS.mode = 'new'; QBS.range = null; QBS.note = ''; QBS.tab = 'tables'; QBS.exp = new Map(); QBS.vt = null; QBS.editF = null;
-  const found = findQueryAt(ta.value, ta.selectionStart);
+  const found = QBS.target ? (String(QBS.target.text || '').trim() ? { literal: encodeBsl(QBS.target.text, '') } : null) : findQueryAt(ta.value, ta.selectionStart);
   if (found) {
     try {
       const batch = []; QBS.batch = batch;
@@ -7159,16 +7323,18 @@ function openBuilder() {
       const s0 = batch.find((e) => e.st); if (!s0) throw new Error('в пакете нет ни одного запроса на выборку');
       batch.forEach((e) => { if (e.st && e.st !== s0.st) { Object.assign(s0.st.ptables, e.st.ptables); e.st.ptest = s0.st.ptest; e.st.plist = s0.st.plist; e.st.ptables = s0.st.ptables; } });
       selectBatch(batch.indexOf(s0)); QBS.mode = 'edit'; QBS.range = found;
-      const pv = scanParamValues(ta.value); Object.assign(QBS.st.ptest, pv.values); Object.assign(QBS.st.plist, pv.lists);
+      const pv = QBS.target ? { values: QBS.target.ptest || {}, lists: QBS.target.plist || {} } : scanParamValues(ta.value); Object.assign(QBS.st.ptest, pv.values); Object.assign(QBS.st.plist, pv.lists);
     } catch (e) { QBS.batch = [{ st: newQState() }]; selectBatch(0); QBS.note = 'Этот запрос конструктор открыть не смог: ' + e.message + '. Можно собрать новый запрос, он будет вставлен в код отдельно.'; }
   }
-  $('#qbMode').textContent = QBS.mode === 'edit' ? 'Изменяется запрос из кода: заменится только его текст' : 'Новый запрос: вставится в код на месте курсора';
-  $('#qbApply').textContent = QBS.mode === 'edit' ? 'Заменить запрос в коде' : 'Вставить в код';
+  if (QBS.target && !QBS.note && QBS.mode === 'new') Object.assign(QBS.st.ptest, QBS.target.ptest || {}), Object.assign(QBS.st.plist, QBS.target.plist || {});
+  $('#qbMode').textContent = QBS.target ? 'Запрос отчёта «' + QBS.target.title + '»' : QBS.mode === 'edit' ? 'Изменяется запрос из кода: заменится только его текст' : 'Новый запрос: вставится в код на месте курсора';
+  $('#qbApply').textContent = QBS.target ? 'Сохранить в отчёт' : QBS.mode === 'edit' ? 'Заменить запрос в коде' : 'Вставить в код';
   renderQB(); updatePreview();
   if (!dlg.open) dlg.showModal();
 }
 function applyBuilder() {
   const text = buildBatch(); if (!text) return;
+  if (QBS.target) { const t = QBS.target; QBS.target = null; dlg.close(); t.apply(text, Object.assign({}, QBS.st.ptest), Object.assign({}, QBS.st.plist)); showToast('Запрос отчёта обновлён'); return; }
   if (QBS.mode === 'edit' && QBS.range) {
     const r = QBS.range; ta.focus(); ta.setRangeText(encodeBsl(text, r.indent), r.start, r.end, 'end');
   } else insertAtCursor(newQueryCode(text));
@@ -8623,6 +8789,7 @@ const T_DOC = {
   'ОбластьМакета': { p: [['Параметры', 'ПараметрыОбласти', 'Параметры области: Область.Параметры.Имя = Значение.'], ['ВысотаТаблицы', 'Число', 'Число строк области.']] },
   'ПараметрыОбласти': { m: [['Заполнить(Источник: Произвольный)', 'Заполняет параметры одноимёнными свойствами объекта, ссылки, структуры, строки таблицы или выборки.']] },
   'ОриентацияСтраницы': { p: [['Портрет', 'ОриентацияСтраницы', 'Книжная'], ['Ландшафт', 'ОриентацияСтраницы', 'Альбомная']] },
+  'ПостроительОтчета': { p: [['Текст', 'Строка', 'Текст запроса.'], ['Параметры', 'ПараметрыЗапроса', 'Параметры запроса: Параметры.Вставить("Имя", Значение).'], ['Заголовок', 'Строка', 'Заголовок над таблицей отчёта.'], ['ВыводитьОбщиеИтоги', 'Булево', 'Строка «Итого» по числовым колонкам (по умолчанию Истина).'], ['ВыводитьДетальныеЗаписи', 'Булево', 'Выводить строки результата (по умолчанию Истина).'], ['Результат', 'РезультатЗапроса', 'Результат после Выполнить().']], m: [['УстановитьПараметр(Имя: Строка, Значение: Произвольный)', 'Задаёт значение параметра &Имя.'], ['Выполнить()', 'Выполняет запрос.'], ['Вывести(ТабДок: ТабличныйДокумент = ...)', 'Выводит результат таблицей с шапкой и итогами; без параметра — сразу открывает предпросмотр.']] },
   'Запрос': { p: [['Текст', 'Строка', 'Текст запроса на языке запросов 1С.'], ['Параметры', 'ПараметрыЗапроса', 'Параметры запроса.']], m: [['УстановитьПараметр(Имя: Строка, Значение: Произвольный)', 'Задаёт значение параметра &Имя. Можно передать число, строку, дату, ссылку, массив, список или таблицу значений.'], ['Выполнить(): РезультатЗапроса', 'Выполняет запрос; у пакета возвращает результат последнего запроса.'], ['ВыполнитьПакет(): Массив', 'Выполняет пакет запросов, разделённых «;», и возвращает массив результатов: по одному на каждый запрос, для УНИЧТОЖИТЬ — Неопределено.']] },
   'ПараметрыЗапроса': { m: [['Вставить(Имя: Строка, Значение: Произвольный)', 'Задаёт значение параметра.'], ['Получить(Имя: Строка): Произвольный', 'Значение параметра.'], ['Количество(): Число', 'Число параметров.'], ['Очистить()', 'Удаляет параметры.']] },
   'РезультатЗапроса': { m: [['Пустой(): Булево', 'Результат не содержит строк.'], ['Выбрать(): Выборка', 'Выборка для обхода строк.'], ['Выгрузить(): ТаблицаЗначений', 'Результат в таблицу значений.']] },
@@ -9858,6 +10025,7 @@ const T_NOTE = {
   'Соответствие': [P('Пары «ключ — значение», ключ любого типа. Получить возвращает Неопределено, если ключа нет.'), HX('Цены = Новый Соответствие;\nЦены.Вставить("Монитор", 24500);\nСообщить(Цены.Получить("Монитор"));\nДля Каждого Пара Из Цены Цикл\n    Сообщить(Пара.Ключ + " = " + Строка(Пара.Значение));\nКонецЦикла;')],
   'СписокЗначений': [P('Список значений с представлениями и пометками. В запросе работает как массив: в условии В и в ИЗ &Список.'), HX('Города = Новый СписокЗначений;\nГорода.Добавить("Москва");\nГорода.Добавить("Казань", "Казань (склад)");\nСообщить(Города.Получить(1).Представление);')],
   'ТаблицаЗначений': [P('Таблица с колонками и строками. Строка — объект, у которого колонки читаются как поля. Таблицу можно передать в запрос: ' + K('ИЗ &Таблица КАК Т') + '. Результат запроса выгружается в таблицу методом Выгрузить.'), HX('Т = Новый ТаблицаЗначений;\nТ.Колонки.Добавить("Товар");\nТ.Колонки.Добавить("Сумма");\nСтр = Т.Добавить();\nСтр.Товар = "Монитор";\nСтр.Сумма = 24500;\nСообщить(Т.Итог("Сумма"));')],
+  'ПостроительОтчета': [P('Выполняет запрос и выводит результат в табличный документ таблицей с шапкой и итогами. Подробно: ' + HL('cfg-reports', 'простые отчёты') + '.'), HX('Построитель = Новый ПостроительОтчета("ВЫБРАТЬ Н.Наименование КАК Товар, Н.Цена КАК Цена ИЗ Справочник.Номенклатура КАК Н");\nПостроитель.Вывести();')],
   'Запрос': [P('Выполняет запрос на языке запросов к данным базы. Подробно: ' + HL('q-select', 'язык запросов') + ', ' + HL('q-params', 'параметры') + ', ' + HL('q-batch', 'пакеты и ПОМЕСТИТЬ') + '.'), HX('Запрос = Новый Запрос;\nЗапрос.Текст = "ВЫБРАТЬ Н.Наименование КАК Имя ИЗ Справочник.Номенклатура КАК Н ГДЕ Н.Цена > &Цена";\nЗапрос.УстановитьПараметр("Цена", 10000);\nВыборка = Запрос.Выполнить().Выбрать();\nПока Выборка.Следующий() Цикл\n    Сообщить(Выборка.Имя);\nКонецЦикла;')],
   'Выборка': [P('Обход результата запроса строка за строкой. Поля выборки — это имена полей результата (после КАК). Перед чтением полей вызовите Следующий().')],
   'РезультатЗапроса': [P('Результат Запрос.Выполнить(): из него получают выборку или таблицу значений.')],
@@ -10100,6 +10268,15 @@ function buildHelp() {
     P('Элемент <b>Страницы</b> — набор вкладок; внутри него только элементы <b>Страница</b>, а на страницы кладутся любые элементы. При добавлении «Страниц» сразу создаются две страницы; новую страницу добавляет «Добавить элемент → Страница», когда выбраны «Страницы» или одна из страниц. Вкладки в предпросмотре можно перетаскивать.') +
     UL(['Свойство поля <b>Вид</b>: для Булево — флажок, флажок с заголовком справа или переключатель Да/Нет; для строк, чисел и ссылок — поле ввода, <b>поле выбора</b> (выпадающий список) или <b>переключатель</b>.', 'Для строк и чисел варианты задаёт свойство <b>Список выбора</b>: ' + K('Розница; Опт; Интернет') + '. Для ссылок варианты берутся из справочника или перечисления.', '<b>Реквизиты формы</b> (блок над элементами) — значения, которые живут, пока форма открыта, и не записываются в базу. На форму выводятся полем с реквизитом ' + K('Форма.Имя') + ' или перетаскиванием из палитры (◇).', 'В модуле: ' + K('ЭтаФорма.Имя') + ' — чтение и запись реквизита формы; ' + K('Элементы.Страницы.ТекущаяСтраница') + ' — открытая вкладка (присвойте ей элемент-страницу или её имя); ' + K('Элементы.Страница2.Видимость = Ложь') + ' скрывает вкладку.']) +
     HX('Процедура ПриОткрытии(Отказ)\n    ЭтаФорма.Режим = "Опт";\n    Если Объект.Проведен Тогда\n        Элементы.Страницы.ТекущаяСтраница = Элементы.Страница2;\n    КонецЕсли;\nКонецПроцедуры'), 'страницы страница вкладка вкладки текущаястраница переключатель флажок поле выбора список выбора вид реквизит формы этаформа');
+  add('cfg-reports', 'Конфигурация', 'Простые отчёты', () =>
+    P('Отчёт — запрос, результат которого выводится в табличный документ: заголовок, шапка, строки и строка «Итого» по числовым колонкам. Предпросмотр, печать и сохранение в PDF — как у печатных форм.') +
+    '<h4>Отчёт в конфигурации</h4>' + UL(['Раздел «База данных» → группа «Отчёты» → «Создать».', 'Запрос пишется текстом или собирается «Конструктором запроса…»; подходит и пакет — выводится последний запрос.', 'Значения параметров задаются в таблице «Параметры»; для ссылочных параметров — выбор из списка.', 'Кнопка «Сформировать» открывает предпросмотр.']) +
+    HX('ТабДок = Отчеты.ПродажиПоКонтрагентам.Сформировать(Новый Структура("Начало, Конец", \'20260101\', \'20260131\'));\nТабДок.Показать();') +
+    P('Структура в Сформировать() заменяет значения параметров из настроек отчёта; без неё берутся настройки.') +
+    '<h4>ПостроительОтчета в коде</h4>' + P('Упрощённый вариант платформенного построителя: без настроек отборов и группировок, только запрос и вывод.') +
+    HX('Построитель = Новый ПостроительОтчета;\nПостроитель.Текст = "ВЫБРАТЬ Н.Наименование КАК Товар, Н.Цена КАК Цена ИЗ Справочник.Номенклатура КАК Н";\nПостроитель.Заголовок = "Прайс-лист";\nТабДок = Новый ТабличныйДокумент;\nПостроитель.Вывести(ТабДок);\nТабДок.Показать();') +
+    UL([K('ВыводитьОбщиеИтоги = Ложь') + ' — без строки «Итого».', K('ВыводитьДетальныеЗаписи = Ложь') + ' — только итог.', K('Построитель.Вывести()') + ' без параметра сразу открывает предпросмотр.']),
+    'отчет отчёты отчеты построительотчета построитель сформировать табличный документ итоги вывести');
   add('cfg-print', 'Конфигурация', 'Печатные формы', () =>
     P('Печатная форма строится из ' + HL('cfg-tpl', 'макета') + ': код берёт область, задаёт её параметры и выводит в ' + HL('type:ТабличныйДокумент', 'ТабличныйДокумент') + '. ' + K('Показать()') + ' открывает предпросмотр листов A4, оттуда — печать или «Сохранить как PDF».') +
     UL([K('ПолучитьМакет("Имя")') + ' — в модулях объекта, менеджера и формы; в основном модуле — через менеджер.', K('Макет.ПолучитьОбласть("Шапка")') + ' — область по имени.', K('Область.Параметры.Заполнить(Объект)') + ' или ' + K('Область.Параметры.Имя = Значение') + '.', K('ТабДок.Вывести(Область)') + ', ' + K('ТабДок.ВывестиГоризонтальныйРазделительСтраниц()') + '.', 'Кнопка «Печать» в форме и в списке документов вызывает экспортную функцию ' + K('Печать(Ссылка)') + ' модуля менеджера; если она возвращает ТабличныйДокумент, он показывается.', HL('fn:ЧислоПрописью', 'ЧислоПрописью') + ' — сумма словами.']) +
@@ -11426,6 +11603,84 @@ $('#srRepAll').addEventListener('click', () => {
 });
 
 
+/* ---------- отчёты: панель раздела «База данных» ---------- */
+const curReport = () => (M().reports || []).find((x) => x.name === dbState.name);
+function reportParamInput(r, n, ref) {
+  const st = r.params[n] || {}, a = 'data-act="rp-param" data-k="' + esc(n) + '"', lbl = ' aria-label="Значение параметра ' + esc(n) + '"';
+  if (ref) {
+    const cur = new Set(String(st.text || '').split(',').map((x) => x.trim()).filter(Boolean)), opts = C.refOptions(ref);
+    const o = (x) => { const v = '@' + ref + '#' + x.key; return '<option value="' + esc(v) + '"' + (cur.has(v) ? ' selected' : '') + '>' + esc(String(x.label)) + '</option>'; };
+    return st.list ? '<select multiple size="' + Math.min(6, Math.max(3, opts.length)) + '" class="in" ' + a + lbl + '>' + opts.map(o).join('') + '</select>'
+      : '<select class="in" ' + a + lbl + '><option value="">— не выбрано —</option>' + opts.map(o).join('') + '</select>';
+  }
+  return '<input class="in" ' + a + lbl + ' value="' + esc(st.text || '') + '" placeholder="' + (st.list ? '1, 2, 3' : 'Число, строка, Истина, 2026-01-31') + '" style="min-width:260px">';
+}
+function reportPanel() {
+  const r = curReport();
+  if (!r) return '<p class="muted">Выберите объект слева или создайте новый.</p>';
+  const names = C.queryParamNames(r.query), refs = C.queryParamRefs(r.query);
+  let h = '<div class="oh"><span class="kind">Отчёт</span><label class="fld">Имя<input class="in" data-act="rp-name" value="' + esc(r.name) + '"></label>' +
+    '<label class="fld">Заголовок<input class="in" data-act="rp-title" value="' + esc(r.title || '') + '" placeholder="' + esc(r.name) + '"></label>' +
+    '<button type="button" class="btn btn-s btn-run" data-act="rp-run"' + (r.query.trim() ? '' : ' disabled') + '>Сформировать</button><button type="button" class="lnk" data-act="rp-del">Удалить отчёт</button></div>';
+  h += '<h3>Запрос</h3><textarea class="in rp-text" data-act="rp-query" spellcheck="false" aria-label="Текст запроса отчёта" placeholder="ВЫБРАТЬ … ИЗ … — или соберите запрос конструктором">' + esc(r.query) + '</textarea>' +
+    '<div class="rp-bar"><button type="button" class="btn btn-s" data-act="rp-builder">Конструктор запроса…</button><span class="muted">Пакет запросов тоже подходит: в отчёт выводится результат последнего запроса.</span></div>';
+  h += '<h3>Параметры</h3>' + (names.length ? '<table class="rp-grid"><thead><tr><th>Параметр</th><th>Значение</th><th>Список</th></tr></thead><tbody>' + names.map((n) => {
+    const ref = refs[n.toLowerCase()];
+    return '<tr><td>&amp;' + esc(n) + (ref ? '<div class="muted">' + esc(ref) + '</div>' : '') + '</td><td>' + reportParamInput(r, n, ref) + '</td><td><input type="checkbox" data-act="rp-plist" data-k="' + esc(n) + '"' + ((r.params[n] || {}).list ? ' checked' : '') + ' aria-label="Параметр ' + esc(n) + ' — список значений"></td></tr>';
+  }).join('') + '</tbody></table>' : '<p class="muted">В запросе нет параметров. Параметр — имя со знаком &amp;, например &amp;Начало.</p>');
+  h += '<h3>Оформление</h3><div class="rp-opts"><label class="fz-chk"><input type="checkbox" data-act="rp-totals"' + (r.totals !== false ? ' checked' : '') + '> Строка «Итого» по числовым колонкам</label>' +
+    '<label class="fz-chk"><input type="checkbox" data-act="rp-showp"' + (r.showParams !== false ? ' checked' : '') + '> Значения параметров под заголовком</label>' +
+    '<label class="fld">Ориентация<select class="in" data-act="rp-orient">' + optH('Портрет', 'Книжная', r.orient || 'Портрет') + optH('Ландшафт', 'Альбомная', r.orient || 'Портрет') + '</select></label></div>';
+  h += '<p class="muted">В коде: ' + K('ТабДок = Отчеты.' + r.name + '.Сформировать();') + ' ' + K('ТабДок.Показать();') + ' Параметры можно передать структурой — они заменят значения из настроек: ' +
+    K('Отчеты.' + r.name + '.Сформировать(Новый Структура("' + (names[0] || 'Параметр') + '", Значение))') + '.</p>';
+  return h;
+}
+function reportRun() {
+  const r = curReport(); if (!r) return;
+  const res = C.runReport(r.name);
+  if (res.prints.length) openPrint(res.prints); else showToast(res.msgs.join(' ') || 'Отчёт пуст');
+}
+dbmain.addEventListener('click', (e) => {
+  if (dbState.kind !== 'report') return;
+  const b = e.target.closest('[data-act]'); if (!b || b.tagName === 'INPUT' || b.tagName === 'SELECT' || b.tagName === 'TEXTAREA') return;
+  const r = curReport(); if (!r) return;
+  if (b.dataset.act === 'rp-run') reportRun();
+  else if (b.dataset.act === 'rp-builder') {
+    const ptest = {}, plist = {}; Object.entries(r.params).forEach(([k, v]) => { ptest[k] = v.text || ''; if (v.list) plist[k] = true; });
+    openBuilder({ title: r.name, text: r.query, ptest, plist, apply(text, pt, pl) {
+      r.query = text;
+      Object.keys(pt || {}).forEach((k) => { if (String(pt[k]).trim()) r.params[k] = Object.assign({}, r.params[k], { text: pt[k], list: !!(pl && pl[k]) }); });
+      commit(false); renderMain();
+    } });
+  } else if (b.dataset.act === 'rp-del') {
+    if (!confirm('Удалить отчёт «' + r.name + '»? Обращения к нему в коде перестанут работать.')) return;
+    const m = M(); m.reports.splice(m.reports.indexOf(r), 1);
+    const o = m.objects[0]; dbState.kind = o ? o.kind : 'catalog'; dbState.name = o ? o.name : '';
+    commit(true); renderTree(); renderMain();
+  }
+});
+dbmain.addEventListener('change', (e) => {
+  if (dbState.kind !== 'report') return;
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const r = curReport(); if (!r) return;
+  const act = el.dataset.act, k = el.dataset.k;
+  if (act === 'rp-name') {
+    const nn = el.value.trim(), m = M(); if (nn === r.name) return;
+    const err = checkName(nn, m.reports.filter((x) => x !== r).map((x) => x.name.toLowerCase()), []);
+    if (err) { toastDb(err); el.value = r.name; return; }
+    r.name = nn; dbState.name = nn; commit(true); renderTree(); renderMain();
+    showToast('Переименовано. Обращения в коде поправьте сами — поиск по модулям: Ctrl + Shift + F'); return;
+  }
+  if (act === 'rp-title') r.title = el.value.trim();
+  else if (act === 'rp-query') { r.query = el.value; commit(false); renderMain(); return; }
+  else if (act === 'rp-param') r.params[k] = Object.assign({}, r.params[k], { text: el.multiple ? [...el.selectedOptions].map((o) => o.value).join(', ') : el.value });
+  else if (act === 'rp-plist') { r.params[k] = Object.assign({}, r.params[k], { list: el.checked }); commit(false); renderMain(); return; }
+  else if (act === 'rp-totals') r.totals = el.checked;
+  else if (act === 'rp-showp') r.showParams = el.checked;
+  else if (act === 'rp-orient') r.orient = el.value;
+  commit(false);
+});
+
 /* ---------- общие модули и константы: панели раздела «База данных» ---------- */
 function commonPanel() {
   const c = (M().common || []).find((x) => x.name === dbState.name);
@@ -11468,9 +11723,14 @@ function cmRename(kind, oldName, nn) {
   return true;
 }
 tree.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-act="cm-add"],[data-act="cn-add"]'); if (!b) return;
+  const b = e.target.closest('[data-act="cm-add"],[data-act="cn-add"],[data-act="rp-add"]'); if (!b) return;
   e.stopPropagation();
   const m = M(), common = b.dataset.act === 'cm-add';
+  if (b.dataset.act === 'rp-add') {
+    m.reports = m.reports || []; const name = uniqueName('Отчет', m.reports.map((x) => x.name.toLowerCase()));
+    m.reports.push({ name, title: '', totals: true, query: '', params: {} }); dbState.kind = 'report'; dbState.name = name; commit(true); renderTree(); renderMain();
+    const q = dbmain.querySelector('[data-act="rp-query"]'); if (q) q.focus(); return;
+  }
   if (common) { m.common = m.common || []; const name = uniqueName('ОбщийМодуль', m.common.map((x) => x.name.toLowerCase())); m.common.push({ name, code: '' }); dbState.kind = 'common'; dbState.name = name; commit(true); renderTree(); renderMain(); storeCurrent(); openModule('c:' + name); }
   else { m.consts = m.consts || []; const name = uniqueName('Константа', m.consts.map((x) => x.name.toLowerCase())); m.consts.push({ name, t: 'Строка', v: '' }); dbState.kind = 'const'; dbState.name = name; commit(true); renderTree(); renderMain(); const i = dbmain.querySelector('[data-act="cn-name"]'); if (i) { i.focus(); i.select(); } }
 }, true);
@@ -11513,8 +11773,8 @@ tree.addEventListener('contextmenu', (e) => {
   const b = btn || row.querySelector('[data-act]'); if (!b) return;
   e.preventDefault();
   const act = b.dataset.act, [x, y] = menuPoint(e, b);
-  if (act === 'cm-add' || act === 'cn-add' || (row && row.classList.contains('tg-h') && row.querySelector('[data-act="cm-add"],[data-act="cn-add"]'))) {
-    const ab = row.querySelector('[data-act="cm-add"],[data-act="cn-add"]') || b;
+  if (act === 'cm-add' || act === 'cn-add' || act === 'rp-add' || (row && row.classList.contains('tg-h') && row.querySelector('[data-act="cm-add"],[data-act="cn-add"],[data-act="rp-add"]'))) {
+    const ab = row.querySelector('[data-act="cm-add"],[data-act="cn-add"],[data-act="rp-add"]') || b;
     gmOpen(x, y, [{ label: ab.dataset.act === 'cm-add' ? 'Создать общий модуль' : 'Создать константу', run: () => ab.click() }], b); return;
   }
   if (act === 'obj-add' || (row && row.classList.contains('tg-h'))) {
@@ -11660,9 +11920,9 @@ $('#setTourNow').addEventListener('click', () => { setDlg.close(); window.scroll
   loadMeta(); ensureSel(); dbState.kind = (curObj() || M().objects[0] || { kind: 'catalog' }).kind; dbState.name = (curObj() || M().objects[0] || { name: '' }).name;
   renderSchema(); renderTree(); renderMain();
   try { mainCode = ST.mode === 'file' ? '' : localStorage.getItem(MAIN_KEY) || ''; } catch (e) { mainCode = ''; }
-  if (!M().objects.some((o) => o.kind === 'accum') || !M().objects.some((o) => (o.templates || []).length) || !M().objects.some((o) => o.name === 'ЦеныНоменклатуры') || !M().objects.some((o) => o.hier) || !(M().common || []).length) {
-    let seen = false; try { seen = localStorage.getItem('sandbox1c.hint.v5') === '1'; localStorage.setItem('sandbox1c.hint.v5', '1'); } catch (e) { /* хранилище недоступно */ }
-    if (!seen) setTimeout(() => showToast('В сохранённой базе нет новых демо-объектов: регистров, цен, макетов, иерархического справочника «Сотрудники», общих модулей и констант. «Сбросить к демо-базе» в разделе «База данных» добавит их'), 600);
+  if (!M().objects.some((o) => o.kind === 'accum') || !M().objects.some((o) => (o.templates || []).length) || !M().objects.some((o) => o.name === 'ЦеныНоменклатуры') || !M().objects.some((o) => o.hier) || !(M().common || []).length || !(M().reports || []).length) {
+    let seen = false; try { seen = localStorage.getItem('sandbox1c.hint.v6') === '1'; localStorage.setItem('sandbox1c.hint.v6', '1'); } catch (e) { /* хранилище недоступно */ }
+    if (!seen) setTimeout(() => showToast('В сохранённой базе нет новых демо-объектов: регистров, цен, макетов, иерархического справочника «Сотрудники», общих модулей, констант и отчёта. «Сбросить к демо-базе» в разделе «База данных» добавит их'), 600);
   }
   populateModuleSelect(); refreshModuleUi();
   let fromHash = null;
